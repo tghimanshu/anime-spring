@@ -1,0 +1,110 @@
+<div class="container">
+  <h1 class="mb-2">All Animes</h1>
+  <button routerLink="/add" class="btn btn-primary mb-3">Add Anime</button>
+  <form [formGroup]="filterForm" class="d-flex" (ngSubmit)="filterAnime()">
+    <input
+      type="text"
+      class="form-control mb-3 w-25"
+      placeholder="Enter Title to filter..."
+      formControlName="title"
+    />
+    <input
+      type="number"
+      class="form-control mb-3 w-25"
+      placeholder="Enter Episode Count to filter..."
+      formControlName="episodes"
+    />
+    <input
+      type="text"
+      class="form-control mb-3 w-25"
+      placeholder="Enter Protagonist to filter..."
+      formControlName="protagonist"
+    />
+    <button type="submit" class="btn btn-success mb-3">Filter</button>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="bg-dark text-white">
+        <tr>
+          <td>Id</td>
+          <td>Title</td>
+          <td>Episodes</td>
+          <td>Protagonist</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let anime of animes">
+          <td>{{ anime.id }}</td>
+          <td [title]="anime.desc">{{ anime.title }}</td>
+          <td>{{ anime.episodes }}</td>
+          <td>{{ anime.protagonist }}</td>
+          <td>
+            <button
+              [routerLink]="['/', 'filtered', 'add', anime.id]"
+              class="btn btn-primary btn-sm me-2"
+            >
+              Edit
+            </button>
+            <button
+              (click)="deleteAnime(anime.id)"
+              class="btn btn-danger btn-sm"
+            >
+              delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="w-100 mt-2 d-flex justify-content-between">
+      <div>
+        Total Items:
+        <input
+          type="text"
+          [(ngModel)]="pageInfo.pageSize"
+          (change)="updatePageSize()"
+        />
+      </div>
+      <ul class="pagination me-5">
+        <li
+          class="page-item"
+          [ngClass]="{
+            disabled: pageInfo.currentPage <= 0
+          }"
+        >
+          <a
+            class="page-link"
+            routerLink="/filtered"
+            [queryParams]="{ page: pageInfo.currentPage - 1 }"
+            >Previous</a
+          >
+        </li>
+        <li
+          class="page-item"
+          [ngClass]="{
+            active: i == pageInfo.currentPage
+          }"
+          *ngFor="
+            let page of [].constructor(pageInfo.totalPages);
+            let i = index
+          "
+        >
+          <a class="page-link" href="#">{{ i + 1 }}</a>
+        </li>
+        <li
+          class="page-item"
+          [ngClass]="{
+            disabled: pageInfo.currentPage >= pageInfo.totalPages - 1
+          }"
+        >
+          <a
+            class="page-link"
+            routerLink="/filtered"
+            [queryParams]="{ page: pageInfo.currentPage + 1 }"
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+  <h1 class="text-center">Add New Anime</h1>
+  <form (ngSubmit)="id ? updateAnime() : addAnime()" [formGroup]="animeForm">
+    <input
+      type="text"
+      formControlName="title"
+      class="form-control mb-2"
+      placeholder="Enter Title"
+    />
+    <input
+      type="number"
+      formControlName="episodes"
+      class="form-control mb-2"
+      placeholder="Enter Total Episode Count"
+    />
+    <input
+      type="text"
+      formControlName="protagonist"
+      class="form-control mb-2"
+      placeholder="Enter Protagonist Name"
+    />
+    <input
+      type="text"
+      formControlName="desc"
+      class="form-control mb-2"
+      placeholder="Enter Description"
+    />
+    <button type="submit" class="btn btn-success" *ngIf="!id">Add</button>
+    <button type="submit" class="btn btn-success" *ngIf="id">Update</button>
+  </form>
+</div>
