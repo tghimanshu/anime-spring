@@ -9,6 +9,10 @@ import { AnimeListComponent } from './components/anime-list/anime-list.component
 import { AnimeAddComponent } from './components/anime-add/anime-add.component';
 import { AnimeFilteredListComponent } from './anime-filtered-list/anime-filtered-list.component';
 
+/**
+ * The root module of the application.
+ * It declares the components and imports the necessary modules for the application to run.
+ */
 @NgModule({
   declarations: [AppComponent, AnimeListComponent, AnimeAddComponent, AnimeFilteredListComponent],
   imports: [
